@@ -43,7 +43,7 @@ public class AuthService {
                 .id(savedUser.getId())
                 .username(savedUser.getUsername())
                 .email(savedUser.getEmail())
-                .roleId(savedUser.getRole() != null ? savedUser.getRole().getId() : 1)
+                .roleId(savedUser.getRole() != null ? savedUser.getRole().getId() : 2)
                 .createdAt(savedUser.getCreatedAt())
                 .build();
     }
