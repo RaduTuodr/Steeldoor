@@ -57,7 +57,7 @@ public class AuthService {
         }
 
         String token = jwtUtils.generateToken(org.springframework.security.core.userdetails.User
-                .withUsername(user.getUsername())
+                .withUsername(user.getEmail())
                 .password(user.getPasswordHash())
                 .authorities(user.getRole() != null ? user.getRole().getName() : "ROLE_MEMBER")
                 .build());
