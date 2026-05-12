@@ -3,6 +3,7 @@ package org.example.steeldoor.config;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.steeldoor.model.*;
+import org.example.steeldoor.model.enums.CompanySize;
 import org.example.steeldoor.model.enums.ProblemDifficulty;
 import org.example.steeldoor.model.enums.RoundType;
 import org.example.steeldoor.model.keys.RoundProblemId;
@@ -123,7 +124,8 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .website("https://careers.google.com")
                 .description("Multinational technology company specialising in internet services.")
                 .industry("Technology")
-                .headquarters("Mountain View, CA")
+                .location("Mountain View, CA")
+                .size(CompanySize.ENTERPRISE)
                 .build();
 
         Company amazon = Company.builder()
@@ -132,7 +134,8 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .website("https://www.amazon.jobs")
                 .description("E-commerce and cloud computing giant.")
                 .industry("Technology / E-Commerce")
-                .headquarters("Seattle, WA")
+                .location("Seattle, WA")
+                .size(CompanySize.ENTERPRISE)
                 .build();
 
         Company stripe = Company.builder()
@@ -141,7 +144,8 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .website("https://stripe.com/jobs")
                 .description("Financial infrastructure platform for the internet.")
                 .industry("FinTech")
-                .headquarters("San Francisco, CA")
+                .location("San Francisco, CA")
+                .size(CompanySize.STARTUP)
                 .build();
 
         em.persist(google);

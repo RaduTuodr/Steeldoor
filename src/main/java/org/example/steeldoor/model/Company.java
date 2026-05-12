@@ -3,6 +3,7 @@ package org.example.steeldoor.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
+import org.example.steeldoor.model.enums.CompanySize;
 
 @Entity
 @Table(
@@ -38,5 +39,9 @@ public class Company {
     private String industry;
 
     @Column(columnDefinition = "TEXT")
-    private String headquarters;
+    private String location;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "company_size")
+    private CompanySize size;
 }
