@@ -2,12 +2,10 @@ package org.example.steeldoor.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.example.steeldoor.dto.LoginRequestDTO;
-import org.example.steeldoor.dto.LoginResponseDTO;
-import org.example.steeldoor.dto.RegisterRequestDTO;
-import org.example.steeldoor.dto.RegisterResponseDTO;
+import org.example.steeldoor.dto.*;
 import org.example.steeldoor.model.User;
 import org.example.steeldoor.service.AuthService;
+import org.example.steeldoor.service.PasswordResetService;
 import org.example.steeldoor.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +18,7 @@ public class AuthController {
 
     private final AuthService authService;
     private final UserService userService;
+    private final PasswordResetService passwordResetService;
 
     @PostMapping("/register")
     public ResponseEntity<RegisterResponseDTO> register(@RequestBody @Valid RegisterRequestDTO registerRequestDTO) {
@@ -30,6 +29,7 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid LoginRequestDTO loginRequestDTO) {
         LoginResponseDTO response = authService.login(loginRequestDTO);
+        System.out.println(response);
         return new ResponseEntity<>(response, HttpStatus.ACCEPTED);
     }
 
@@ -37,5 +37,17 @@ public class AuthController {
     public ResponseEntity<User> getCurrentUser(@RequestBody @Valid Integer userId) {
         User user = userService.findById(userId);
         return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @PostMapping("/password/request")
+    public void requestPasswordChange(@RequestBody @Valid PasswordChangeRequestDTO passwordChangeRequestDTO) {
+        System.out.println(passwordChangeRequestDTO);
+        passwordResetService.passwordChangeRequest(passwordChangeRequestDTO);
+        System.out.println(passwordChangeRequestDTO.getPhoneNumber());
+    }
+
+    @PostMapping("/password/confirm")
+    public void confirmPasswordChange(@RequestBody @Valid PasswordChangeConfirmDTO passwordChangeConfirmDTO) {
+        passwordResetService.passwordChangeConfirm(passwordChangeConfirmDTO);
     }
 }
