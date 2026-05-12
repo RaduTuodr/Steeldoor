@@ -1,6 +1,8 @@
 package org.example.steeldoor.service;
 
 import lombok.AllArgsConstructor;
+import org.example.steeldoor.config.exception.CodeExpiredException;
+import org.example.steeldoor.config.exception.InvalidCodeException;
 import org.example.steeldoor.config.exception.UserNotFoundException;
 import org.example.steeldoor.dto.PasswordChangeConfirmDTO;
 import org.example.steeldoor.dto.PasswordChangeRequestDTO;
@@ -28,13 +30,8 @@ public class PasswordResetService {
     private final int MINUTE = 60 * 1000;
 
     public void passwordChangeRequest(PasswordChangeRequestDTO request) {
-
-        System.out.println("Searching for user with id " + request.getUserId());
-
         User user = userRepository.findById(request.getUserId())
                 .orElseThrow(() -> new UserNotFoundException("User with ID " + request.getUserId() + " not found"));
-
-        System.out.println("Here");
 
         Code code = new Code();
         code.setCode(generateCode());
@@ -50,10 +47,10 @@ public class PasswordResetService {
                 .orElseThrow(() -> new UserNotFoundException("User with ID " + request.getUserId() + " not found"));
 
         Code code = codeRepository.findTopByUserOrderByExpirationDateDesc(user)
-                .orElseThrow(() -> new IllegalArgumentException("No code found for user with ID " + request.getUserId()));
+                .orElseThrow(() -> new IllegalStateException("No code found for user with ID " + request.getUserId()));
 
-        if (!code.getCode().equals(request.getCode())) { throw new IllegalArgumentException("Invalid code"); }
-        if (code.getExpirationDate().before(new Date())) { throw new IllegalArgumentException("Code has expired"); }
+        if (!code.getCode().equals(request.getCode())) { throw new InvalidCodeException("Invalid code"); }
+        if (code.getExpirationDate().before(new Date())) { throw new CodeExpiredException("Code has expired"); }
 
         user.setPasswordHash(passwordEncoder.encode(request.getNewPassword()));
         userRepository.save(user);
