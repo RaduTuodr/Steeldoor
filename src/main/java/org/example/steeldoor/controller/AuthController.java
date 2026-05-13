@@ -36,6 +36,8 @@ public class AuthController {
     @GetMapping("/me")
     public ResponseEntity<User> getCurrentUser(@RequestBody @Valid Integer userId) {
         User user = userService.findById(userId);
+        System.out.println("HEREEEREE " + user);
+        System.out.println(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 

@@ -68,8 +68,7 @@ public class AuthService {
         return LoginResponseDTO.builder()
                 .token(token)
                 .id(user.getId())
-                .username(user.getUsername())
-                .email(user.getEmail())
+                .user(user)
                 .build();
     }
 }
