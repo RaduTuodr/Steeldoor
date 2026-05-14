@@ -1,5 +1,6 @@
 package org.example.steeldoor.config;
 
+import org.example.steeldoor.config.exception.InvalidCompanySlugException;
 import org.example.steeldoor.config.exception.UserAlreadyExistsException;
 import org.example.steeldoor.config.exception.UserNotFoundException;
 import org.example.steeldoor.dto.ErrorResponse;
@@ -22,6 +23,16 @@ public class GlobalExceptionHandler {
         ErrorResponse error = new ErrorResponse(
                 HttpStatus.CONFLICT.value(),
                 ex.getMessage(),
+                LocalDateTime.now()
+        );
+        return new ResponseEntity<>(error, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(InvalidCompanySlugException.class)
+    public ResponseEntity<ErrorResponse> handleUserExists(InvalidCompanySlugException ex) {
+        ErrorResponse error = new ErrorResponse(
+                HttpStatus.BAD_REQUEST.value(),
+                "Invalid company slug",
                 LocalDateTime.now()
         );
         return new ResponseEntity<>(error, HttpStatus.CONFLICT);
