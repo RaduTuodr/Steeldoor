@@ -35,9 +35,7 @@ public class CompanyController {
 
     @PostMapping("/{slug}/submissions")
     public ResponseEntity<Submission> createSubmission(@PathVariable String slug, @RequestBody SubmissionCreateDTO submissionCreateDTO) {
-        System.out.println(submissionCreateDTO);
         Submission submission = submissionService.createSubmission(submissionCreateDTO, slug);
-        System.out.println(submission);
         return ResponseEntity.ok(submission);
     }
 }

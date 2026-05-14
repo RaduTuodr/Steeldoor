@@ -25,16 +25,12 @@ public class SubmissionService {
     private UserRepository userRepository;
 
     public Submission createSubmission(SubmissionCreateDTO dto, String companySlug) {
-        System.out.println("User " + dto.getUserId() + " created");
         User user = userRepository.findById(dto.getUserId())
                 .orElseThrow(() -> new UserNotFoundException("User " + dto.getUserId() + " not found"));
-
-        System.out.println("User " + dto.getUserId() + " created");
 
         Company company = companyRepository.findBySlug(companySlug)
                 .orElseThrow(() -> new InvalidCompanySlugException("Company " + companySlug + " not found"));
 
-        System.out.println("Creating new submission");
 
         Submission submission = new Submission();
         submission.setCompany(company);
