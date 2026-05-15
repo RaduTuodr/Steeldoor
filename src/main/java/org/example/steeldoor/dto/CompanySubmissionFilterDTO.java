@@ -7,11 +7,12 @@ import lombok.Data;
 @Data
 @Builder
 @AllArgsConstructor
-public class CompanyFilterDTO {
+public class CompanySubmissionFilterDTO {
     private String query;
-    private String industry;
-    private String location;
-    private String size;
+    private String position;
+    private Boolean offerReceived;
+    private Integer page;
+    private Integer pageSize;
     private String sortDir;
     private String sortBy;
 }

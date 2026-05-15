@@ -2,11 +2,14 @@ package org.example.steeldoor.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.example.steeldoor.dto.CompanyFilterDTO;
+import org.example.steeldoor.dto.CompanySubmissionFilterDTO;
 import org.example.steeldoor.dto.SubmissionCreateDTO;
 import org.example.steeldoor.model.Company;
 import org.example.steeldoor.model.Submission;
 import org.example.steeldoor.service.CompanyService;
 import org.example.steeldoor.service.SubmissionService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.web.PagedModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,5 +40,12 @@ public class CompanyController {
     public ResponseEntity<Submission> createSubmission(@PathVariable String slug, @RequestBody SubmissionCreateDTO submissionCreateDTO) {
         Submission submission = submissionService.createSubmission(submissionCreateDTO, slug);
         return ResponseEntity.ok(submission);
+    }
+
+    @PostMapping("/{slug}/submissions/filter")
+    public ResponseEntity<PagedModel<Submission>> getAllSubmissions(@PathVariable String slug, @RequestBody CompanySubmissionFilterDTO companySubmissionFilterDTO) {
+        Page<Submission> submissions = submissionService.getCompanySubmissions(slug, companySubmissionFilterDTO);
+        PagedModel<Submission> response = new PagedModel<>(submissions);
+        return ResponseEntity.ok(response);
     }
 }
