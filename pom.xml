@@ -106,6 +106,12 @@
             <version>9.14.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.google.cloud</groupId>
+            <artifactId>google-cloud-storage</artifactId>
+            <version>2.40.1</version>
+        </dependency>
+
     </dependencies>
 
     <build>
