@@ -99,4 +99,11 @@ public class SubmissionService {
                     Sort.by(direction, "createdAt");
         };
     }
+
+    public List<Submission> getUserSubmissions(Integer userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("User " + userId + " not found"));
+
+        return submissionRepository.findAllByUser(user);
+    }
 }
