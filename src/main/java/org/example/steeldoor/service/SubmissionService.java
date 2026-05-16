@@ -71,6 +71,8 @@ public class SubmissionService {
 
         if (filter.getOfferReceived() != null && filter.getOfferReceived()) {
             spec = spec.and(SubmissionSpecification.offerReceived(true));
+        } else if (filter.getOfferReceived() != null) {
+            spec = spec.and(SubmissionSpecification.offerReceived(false));
         }
 
         if (filter.getPosition() != null) {
