@@ -29,15 +29,12 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid LoginRequestDTO loginRequestDTO) {
         LoginResponseDTO response = authService.login(loginRequestDTO);
-        System.out.println(response);
         return new ResponseEntity<>(response, HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/me")
     public ResponseEntity<User> getCurrentUser(@RequestBody @Valid Integer userId) {
         User user = userService.findById(userId);
-        System.out.println("HEREEEREE " + user);
-        System.out.println(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 

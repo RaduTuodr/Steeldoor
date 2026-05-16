@@ -43,14 +43,14 @@ public class DatabaseSeeder implements CommandLineRunner {
         List<Role>     roles     = seedRoles();
         List<User>     users     = seedUsers(roles);
         List<Company>  companies = seedCompanies();
-                                   seedOfficeLocations(companies);
+        seedOfficeLocations(companies);
         List<Problem>  problems  = seedProblems();
         List<Question> questions = seedQuestions();
         List<Submission>     submissions = seedSubmissions(users, companies);
         List<InterviewRound> rounds      = seedInterviewRounds(submissions);
-                                           seedRoundProblems(rounds, problems);
-                                           seedRoundQuestions(rounds, questions);
-                                           seedVotes(users, submissions);
+        seedRoundProblems(rounds, problems);
+        seedRoundQuestions(rounds, questions);
+        seedVotes(users, submissions);
 
         log.info("DatabaseSeeder: seed check complete.");
     }
@@ -120,7 +120,7 @@ public class DatabaseSeeder implements CommandLineRunner {
 
         Company google = Company.builder()
                 .name("Google")
-                .logoUrl("https://logo.clearbit.com/google.com")
+                .logoUrl("https://storage.googleapis.com/steeldoor/3ca1c783-1844-46d1-91f3-0b50e31b5c0f-icons8-google-logo-96.png")
                 .website("https://careers.google.com")
                 .description("Multinational technology company specialising in internet services.")
                 .industry("Technology")
@@ -130,7 +130,7 @@ public class DatabaseSeeder implements CommandLineRunner {
 
         Company amazon = Company.builder()
                 .name("Amazon")
-                .logoUrl("https://logo.clearbit.com/amazon.com")
+                .logoUrl("https://storage.googleapis.com/steeldoor/c31653e3-529e-4cff-8e5d-58e1dbccb82b-e8951206c6ba26ce035d6f312be4ec40.png")
                 .website("https://www.amazon.jobs")
                 .description("E-commerce and cloud computing giant.")
                 .industry("Technology / E-Commerce")
@@ -140,7 +140,7 @@ public class DatabaseSeeder implements CommandLineRunner {
 
         Company stripe = Company.builder()
                 .name("Stripe")
-                .logoUrl("https://logo.clearbit.com/stripe.com")
+                .logoUrl("https://storage.googleapis.com/steeldoor/bedabd1b-32d5-41ad-a230-fc604917e202-Stripe-Emblem.png")
                 .website("https://stripe.com/jobs")
                 .description("Financial infrastructure platform for the internet.")
                 .industry("FinTech")
@@ -439,12 +439,12 @@ public class DatabaseSeeder implements CommandLineRunner {
 
         // Users vote on each other's submissions (not their own)
         List<Vote> votes = List.of(
-                vote(bob,   googleSub, (short)  1),   // bob upvotes alice's Google submission
-                vote(carol, googleSub, (short)  1),   // carol upvotes alice's Google submission
-                vote(alice, amazonSub, (short) -1),   // alice downvotes bob's Amazon submission
-                vote(carol, amazonSub, (short)  1),   // carol upvotes bob's Amazon submission
-                vote(alice, stripeSub, (short)  1),   // alice upvotes carol's Stripe submission
-                vote(bob,   stripeSub, (short)  1)    // bob upvotes carol's Stripe submission
+                vote(bob,   googleSub),   // bob upvotes alice's Google submission
+                vote(carol, googleSub),   // carol upvotes alice's Google submission
+                vote(alice, amazonSub),   // alice downvotes bob's Amazon submission
+                vote(carol, amazonSub),   // carol upvotes bob's Amazon submission
+                vote(alice, stripeSub),   // alice upvotes carol's Stripe submission
+                vote(bob,   stripeSub)    // bob upvotes carol's Stripe submission
         );
 
         votes.forEach(em::persist);
@@ -473,8 +473,8 @@ public class DatabaseSeeder implements CommandLineRunner {
         return RoundQuestion.builder().id(id).round(round).question(question).build();
     }
 
-    private Vote vote(User user, Submission submission, short value) {
+    private Vote vote(User user, Submission submission) {
         VoteId id = new VoteId(user.getId(), submission.getId());
-        return Vote.builder().id(id).user(user).submission(submission).value(value).build();
+        return Vote.builder().id(id).user(user).submission(submission).build();
     }
 }

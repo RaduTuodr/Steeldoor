@@ -28,21 +28,13 @@ public class GcsService {
         String fileName =
                 UUID.randomUUID() + "-" + file.getOriginalFilename();
 
-        System.out.println(fileName);
-
         BlobId blobId = BlobId.of(bucketName, fileName);
-
-        System.out.println(blobId.toString());
 
         BlobInfo blobInfo = BlobInfo.newBuilder(blobId)
                 .setContentType(file.getContentType())
                 .build();
 
-        System.out.println(blobInfo.toString());
-
         storage.create(blobInfo, file.getBytes());
-
-        System.out.println("Created blob id: " + blobId.toString());
 
         return "https://storage.googleapis.com/"
                 + bucketName + "/"

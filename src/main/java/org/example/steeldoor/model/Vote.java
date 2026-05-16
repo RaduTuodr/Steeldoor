@@ -13,7 +13,6 @@ import org.example.steeldoor.model.keys.VoteId;
                 @Index(name = "idx_vote_user_id", columnList = "user_id")
         }
 )
-@org.hibernate.annotations.Check(constraints = "value IN (1, -1)")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -47,8 +46,4 @@ public class Vote {
     )
     @NotNull
     private Submission submission;
-
-    @Column(nullable = false, columnDefinition = "SMALLINT")
-    @NotNull
-    private Short value;
 }

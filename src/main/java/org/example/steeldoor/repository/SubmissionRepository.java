@@ -11,8 +11,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface SubmissionRepository extends JpaRepository<Submission, Long>, JpaSpecificationExecutor<Submission> {
-    List<Submission> findByCompany(@NotNull Company company);
-
+public interface SubmissionRepository extends JpaRepository<Submission, Integer>, JpaSpecificationExecutor<Submission> {
     List<Submission> findAllByUser(@NotNull User user);
 }
