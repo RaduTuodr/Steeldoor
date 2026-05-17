@@ -5,12 +5,14 @@ import org.example.steeldoor.config.exception.InvalidCompanySlugException;
 import org.example.steeldoor.config.exception.UserNotFoundException;
 import org.example.steeldoor.dto.CompanySubmissionFilterDTO;
 import org.example.steeldoor.dto.SubmissionCreateDTO;
+import org.example.steeldoor.dto.SubmissionResponseDTO;
 import org.example.steeldoor.model.Company;
 import org.example.steeldoor.model.Submission;
 import org.example.steeldoor.model.User;
 import org.example.steeldoor.repository.CompanyRepository;
 import org.example.steeldoor.repository.SubmissionRepository;
 import org.example.steeldoor.repository.UserRepository;
+import org.example.steeldoor.repository.VoteRepository;
 import org.example.steeldoor.repository.specification.SubmissionSpecification;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -32,6 +34,8 @@ public class SubmissionService {
 
     private UserRepository userRepository;
 
+    private VoteRepository voteRepository;
+
     public Submission createSubmission(SubmissionCreateDTO dto, String companySlug) {
         User user = userRepository.findById(dto.getUserId())
                 .orElseThrow(() -> new UserNotFoundException("User " + dto.getUserId() + " not found"));
@@ -50,7 +54,7 @@ public class SubmissionService {
         return submissionRepository.save(submission);
     }
 
-    public Page<Submission> getCompanySubmissions(
+    public Page<SubmissionResponseDTO> getCompanySubmissions(
             String slug,
             CompanySubmissionFilterDTO filter
     ) {
@@ -81,7 +85,18 @@ public class SubmissionService {
             );
         }
 
-        return submissionRepository.findAll(spec, pageable);
+        Page<Submission> submissionsPage = submissionRepository.findAll(spec, pageable);
+
+        return submissionsPage.map(submission -> {
+            boolean hasUpvoted = false;
+            Integer userId = filter.getUserId();
+            if (userId != null) {
+                hasUpvoted = voteRepository.existsBySubmissionIdAndUserId(submission.getId(), userId);
+            }
+            long numberOfVotes = voteRepository.countBySubmissionId(submission.getId());
+
+            return new SubmissionResponseDTO(submission, numberOfVotes, hasUpvoted);
+        });
     }
 
     private Sort buildSort(CompanySubmissionFilterDTO filter) {

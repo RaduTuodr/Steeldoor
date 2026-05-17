@@ -1,7 +1,10 @@
 package org.example.steeldoor.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.example.steeldoor.model.enums.RoundType;
 
@@ -28,6 +31,7 @@ public class InterviewRound {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @JsonManagedReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(
             name = "submission_id",
@@ -42,6 +46,7 @@ public class InterviewRound {
 
     @Column(nullable = false, columnDefinition = "TEXT")
     @NotNull
+    @Convert(converter = RoundTypeConverter.class)
     private RoundType type;
 
     @Column(columnDefinition = "TEXT")

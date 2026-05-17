@@ -24,4 +24,6 @@ public interface VoteRepository extends JpaRepository<Vote, VoteId> {
 
     @Query("SELECT COUNT(v) FROM Vote v WHERE v.submission.id = :submissionId")
     Integer countBySubmissionId(@Param("submissionId") Integer submissionId);
+
+    boolean existsBySubmissionIdAndUserId(Integer id, Integer userId);
 }

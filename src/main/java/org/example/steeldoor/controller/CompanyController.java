@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.steeldoor.dto.CompanyFilterDTO;
 import org.example.steeldoor.dto.CompanySubmissionFilterDTO;
 import org.example.steeldoor.dto.SubmissionCreateDTO;
+import org.example.steeldoor.dto.SubmissionResponseDTO;
 import org.example.steeldoor.model.Company;
 import org.example.steeldoor.model.Submission;
 import org.example.steeldoor.service.CompanyService;
@@ -43,9 +44,9 @@ public class CompanyController {
     }
 
     @PostMapping("/{slug}/submissions/filter")
-    public ResponseEntity<PagedModel<Submission>> getAllSubmissions(@PathVariable String slug, @RequestBody CompanySubmissionFilterDTO companySubmissionFilterDTO) {
-        Page<Submission> submissions = submissionService.getCompanySubmissions(slug, companySubmissionFilterDTO);
-        PagedModel<Submission> response = new PagedModel<>(submissions);
+    public ResponseEntity<PagedModel<SubmissionResponseDTO>> getAllSubmissions(@PathVariable String slug, @RequestBody CompanySubmissionFilterDTO companySubmissionFilterDTO) {
+        Page<SubmissionResponseDTO> submissions = submissionService.getCompanySubmissions(slug, companySubmissionFilterDTO);
+        PagedModel<SubmissionResponseDTO> response = new PagedModel<>(submissions);
         return ResponseEntity.ok(response);
     }
 }

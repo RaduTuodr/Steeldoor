@@ -1,6 +1,8 @@
 package org.example.steeldoor.config;
 
 import org.example.steeldoor.config.exception.InvalidCompanySlugException;
+import org.example.steeldoor.config.exception.InterviewRoundNotFoundException;
+import org.example.steeldoor.config.exception.SubmissionNotFoundException;
 import org.example.steeldoor.config.exception.UserAlreadyExistsException;
 import org.example.steeldoor.config.exception.UserNotFoundException;
 import org.example.steeldoor.dto.ErrorResponse;
@@ -40,6 +42,26 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleUserNotFound(UserNotFoundException ex) {
+        ErrorResponse error = new ErrorResponse(
+                HttpStatus.NOT_FOUND.value(),
+                ex.getMessage(),
+                LocalDateTime.now()
+        );
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(SubmissionNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleSubmissionNotFound(SubmissionNotFoundException ex) {
+        ErrorResponse error = new ErrorResponse(
+                HttpStatus.NOT_FOUND.value(),
+                ex.getMessage(),
+                LocalDateTime.now()
+        );
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(InterviewRoundNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleInterviewRoundNotFound(InterviewRoundNotFoundException ex) {
         ErrorResponse error = new ErrorResponse(
                 HttpStatus.NOT_FOUND.value(),
                 ex.getMessage(),

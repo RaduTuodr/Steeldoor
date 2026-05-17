@@ -15,4 +15,5 @@ public class CompanySubmissionFilterDTO {
     private Integer pageSize;
     private String sortDir;
     private String sortBy;
+    private Integer userId;
 }

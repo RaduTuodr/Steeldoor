@@ -1,5 +1,9 @@
 package org.example.steeldoor.model.enums;
 
+import lombok.Data;
+import lombok.Getter;
+
+@Getter
 public enum RoundType {
 
     OA("OA"),
@@ -7,16 +11,14 @@ public enum RoundType {
     LIVE_CODING("Live Coding"),
     TECHNICAL_DISCUSSION("Technical Discussion"),
     SYSTEM_DESIGN("System Design"),
-    HR("HR");
+    HR("HR"),
+    RECRUITER_CALL("Recruiter Call"),
+    MANAGERIAL("Managerial");
 
     private final String dbValue;
 
     RoundType(String dbValue) {
         this.dbValue = dbValue;
-    }
-
-    public String getDbValue() {
-        return dbValue;
     }
 
     public static RoundType fromDbValue(String dbValue) {

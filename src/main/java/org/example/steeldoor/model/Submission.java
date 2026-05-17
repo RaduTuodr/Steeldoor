@@ -1,11 +1,13 @@
 package org.example.steeldoor.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(
@@ -68,4 +70,13 @@ public class Submission {
     @Column(nullable = false, columnDefinition = "TIMESTAMPTZ DEFAULT now()")
     @NotNull
     private OffsetDateTime createdAt;
+
+    @OneToMany(
+            mappedBy = "submission",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @OrderBy("orderIndex ASC")
+    @JsonBackReference
+    private List<InterviewRound> rounds = new ArrayList<>();
 }
