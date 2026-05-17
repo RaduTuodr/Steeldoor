@@ -16,7 +16,7 @@ public class VoteController {
 
     private final VoteService voteService;
 
-    @PostMapping("/{submissionId}/{userId}")
+    @PostMapping("/{userId}/{submissionId}")
     public ResponseEntity<UpvoteDTO> getUpvote(@PathVariable Integer userId, @PathVariable Integer submissionId) {
         UpvoteDTO result = voteService.vote(userId, submissionId);
         return ResponseEntity.ok(result);
