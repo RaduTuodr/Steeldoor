@@ -12,7 +12,7 @@ import java.time.OffsetDateTime;
 public class SubmissionCreateDTO {
     private Integer userId;
     private String position;
-    private Integer overallDifficulty;
+    private Integer rating;
     private Boolean offerReceived;
     private OffsetDateTime createdAt;
 }
