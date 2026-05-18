@@ -1,9 +1,6 @@
 package org.example.steeldoor.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.steeldoor.config.JwtAuthenticationFilter;
-import org.example.steeldoor.config.JwtUtils;
-import org.example.steeldoor.config.SecurityConfig;
 import org.example.steeldoor.dto.CreateInterviewRoundDTO;
 import org.example.steeldoor.model.InterviewRound;
 import org.example.steeldoor.model.Submission;
@@ -11,15 +8,14 @@ import org.example.steeldoor.model.enums.RoundType;
 import org.example.steeldoor.service.InterviewRoundService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
+import org.springframework.boot.security.autoconfigure.SecurityAutoConfiguration;
+import org.springframework.boot.security.autoconfigure.UserDetailsServiceAutoConfiguration;
+import org.springframework.boot.security.autoconfigure.web.servlet.SecurityFilterAutoConfiguration;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
-
-import org.springframework.boot.security.autoconfigure.SecurityAutoConfiguration;
-import org.springframework.boot.security.autoconfigure.web.servlet.SecurityFilterAutoConfiguration;
 
 import java.util.List;
 
@@ -29,25 +25,19 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(controllers = InterviewRoundController.class)
-@ImportAutoConfiguration(exclude = {
-        SecurityAutoConfiguration.class,
-        SecurityFilterAutoConfiguration.class
-})
+@WebMvcTest(
+        controllers = InterviewRoundController.class,
+        excludeAutoConfiguration = {
+                SecurityAutoConfiguration.class,
+                SecurityFilterAutoConfiguration.class,
+                UserDetailsServiceAutoConfiguration.class
+        }
+)
 @AutoConfigureMockMvc(addFilters = false)
 class InterviewRoundControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-
-    @MockitoBean
-    private SecurityConfig securityConfig;
-
-    @MockitoBean
-    private JwtAuthenticationFilter jwtAuthenticationFilter;
-
-    @MockitoBean
-    private JwtUtils jwtUtils;
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
