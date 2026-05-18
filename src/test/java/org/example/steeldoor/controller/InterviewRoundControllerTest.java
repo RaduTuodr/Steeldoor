@@ -10,11 +10,15 @@ import org.example.steeldoor.model.enums.RoundType;
 import org.example.steeldoor.service.InterviewRoundService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+
+import org.springframework.boot.security.autoconfigure.SecurityAutoConfiguration;
+import org.springframework.boot.security.autoconfigure.web.servlet.SecurityFilterAutoConfiguration;
 
 import java.util.List;
 
@@ -24,12 +28,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(
-        controllers = InterviewRoundController.class,
-        excludeAutoConfiguration = {
-                org.springframework.boot.security.autoconfigure.SecurityAutoConfiguration.class
-        }
-)
+@WebMvcTest(controllers = InterviewRoundController.class)
+@ImportAutoConfiguration(exclude = {
+        SecurityAutoConfiguration.class,
+        SecurityFilterAutoConfiguration.class
+})
 @AutoConfigureMockMvc(addFilters = false)
 class InterviewRoundControllerTest {
 
