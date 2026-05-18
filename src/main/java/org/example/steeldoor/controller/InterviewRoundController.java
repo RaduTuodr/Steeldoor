@@ -6,7 +6,6 @@ import org.example.steeldoor.dto.CreateInterviewRoundDTO;
 import org.example.steeldoor.dto.InterviewRoundResponseDTO;
 import org.example.steeldoor.model.InterviewRound;
 import org.example.steeldoor.service.InterviewRoundService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
