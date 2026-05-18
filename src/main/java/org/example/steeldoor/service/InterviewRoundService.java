@@ -9,6 +9,7 @@ import org.example.steeldoor.model.Submission;
 import org.example.steeldoor.model.enums.RoundType;
 import org.example.steeldoor.repository.InterviewRoundRepository;
 import org.example.steeldoor.repository.SubmissionRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -61,5 +62,12 @@ public class InterviewRoundService {
         );
 
         return interviewRoundRepository.findAllBySubmissionIdOrderByOrderIndexAsc(submissionId);
+    }
+
+    public InterviewRound updateOrderIndex(Integer roundId, Integer orderIndex) {
+        InterviewRound interviewRound = getInterviewRound(roundId);
+        interviewRound.setOrderIndex(orderIndex);
+
+        return interviewRoundRepository.save(interviewRound);
     }
 }

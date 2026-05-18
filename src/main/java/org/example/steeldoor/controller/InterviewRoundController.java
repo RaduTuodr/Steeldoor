@@ -6,6 +6,7 @@ import org.example.steeldoor.dto.CreateInterviewRoundDTO;
 import org.example.steeldoor.dto.InterviewRoundResponseDTO;
 import org.example.steeldoor.model.InterviewRound;
 import org.example.steeldoor.service.InterviewRoundService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,6 +40,11 @@ public class InterviewRoundController {
                 .map(this::mapToDto)
                 .toList();
         return ResponseEntity.ok(dtos);
+    }
+
+    @PostMapping("/{roundId}/order/{orderIndex}")
+    public void orderInterviewRound(@PathVariable Integer roundId, @PathVariable Integer orderIndex) {
+        interviewRoundService.updateOrderIndex(roundId, orderIndex);
     }
 
     private InterviewRoundResponseDTO mapToDto(InterviewRound round) {
