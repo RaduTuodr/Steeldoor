@@ -23,7 +23,7 @@ import java.util.List;
 
 @Slf4j
 @Component
-@Profile("dev")
+@Profile("!test")
 @RequiredArgsConstructor
 public class DatabaseSeeder implements CommandLineRunner {
 
