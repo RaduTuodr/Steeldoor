@@ -18,7 +18,7 @@ import java.util.List;
                 @Index(name = "idx_submission_created_at", columnList = "created_at")
         }
 )
-@org.hibernate.annotations.Check(constraints = "overall_difficulty IS NULL OR (overall_difficulty BETWEEN 1 AND 5)")
+@org.hibernate.annotations.Check(constraints = "rating IS NULL OR (rating BETWEEN 1 AND 5)")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -59,10 +59,10 @@ public class Submission {
     @Size(max = 255)
     private String position;
 
-    @Column(name = "overall_difficulty")
+    @Column(name = "rating")
     @Min(1)
     @Max(5)
-    private Integer overallDifficulty;
+    private Integer rating;
 
     @Column(name = "offer_received")
     private Boolean offerReceived;

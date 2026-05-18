@@ -283,7 +283,7 @@ public class DatabaseSeeder implements CommandLineRunner {
                         .user(alice)
                         .company(google)
                         .position("Software Engineer L4")
-                        .overallDifficulty(4)
+                        .rating(4)
                         .offerReceived(true)
                         .createdAt(OffsetDateTime.now().minusDays(30))
                         .build(),
@@ -291,7 +291,7 @@ public class DatabaseSeeder implements CommandLineRunner {
                         .user(bob)
                         .company(amazon)
                         .position("SDE II")
-                        .overallDifficulty(3)
+                        .rating(3)
                         .offerReceived(false)
                         .createdAt(OffsetDateTime.now().minusDays(14))
                         .build(),
@@ -299,7 +299,7 @@ public class DatabaseSeeder implements CommandLineRunner {
                         .user(carol)
                         .company(stripe)
                         .position("Backend Engineer")
-                        .overallDifficulty(5)
+                        .rating(5)
                         .offerReceived(true)
                         .createdAt(OffsetDateTime.now().minusDays(7))
                         .build()

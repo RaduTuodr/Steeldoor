@@ -47,7 +47,7 @@ public class SubmissionService {
         submission.setCompany(company);
         submission.setUser(user);
         submission.setPosition(dto.getPosition());
-        submission.setOverallDifficulty(dto.getOverallDifficulty());
+        submission.setRating(dto.getOverallDifficulty());
         submission.setOfferReceived(dto.getOfferReceived());
         submission.setCreatedAt(dto.getCreatedAt() != null ? dto.getCreatedAt() : OffsetDateTime.now());
 
