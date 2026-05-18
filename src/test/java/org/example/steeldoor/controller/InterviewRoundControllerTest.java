@@ -3,6 +3,7 @@ package org.example.steeldoor.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.steeldoor.config.JwtAuthenticationFilter;
 import org.example.steeldoor.config.JwtUtils;
+import org.example.steeldoor.config.SecurityConfig;
 import org.example.steeldoor.dto.CreateInterviewRoundDTO;
 import org.example.steeldoor.model.InterviewRound;
 import org.example.steeldoor.model.Submission;
@@ -38,6 +39,9 @@ class InterviewRoundControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @MockitoBean
+    private SecurityConfig securityConfig;
 
     @MockitoBean
     private JwtAuthenticationFilter jwtAuthenticationFilter;
