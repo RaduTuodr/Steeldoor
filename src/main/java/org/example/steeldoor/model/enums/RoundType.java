@@ -1,6 +1,5 @@
 package org.example.steeldoor.model.enums;
 
-import lombok.Data;
 import lombok.Getter;
 
 @Getter

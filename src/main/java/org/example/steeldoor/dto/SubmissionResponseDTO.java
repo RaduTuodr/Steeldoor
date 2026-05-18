@@ -5,8 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import org.example.steeldoor.model.Submission;
 
-import java.time.OffsetDateTime;
-
 @Data
 @AllArgsConstructor
 @Builder

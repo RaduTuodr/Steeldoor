@@ -1,7 +1,6 @@
 package org.example.steeldoor.repository;
 
 import jakarta.validation.constraints.NotNull;
-import org.example.steeldoor.model.Company;
 import org.example.steeldoor.model.Submission;
 import org.example.steeldoor.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;

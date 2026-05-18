@@ -1,14 +1,10 @@
 package org.example.steeldoor.config;
 
-import org.example.steeldoor.config.exception.InvalidCompanySlugException;
-import org.example.steeldoor.config.exception.InterviewRoundNotFoundException;
-import org.example.steeldoor.config.exception.SubmissionNotFoundException;
-import org.example.steeldoor.config.exception.UserAlreadyExistsException;
-import org.example.steeldoor.config.exception.UserNotFoundException;
+import org.example.steeldoor.config.exception.*;
 import org.example.steeldoor.dto.ErrorResponse;
-import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
