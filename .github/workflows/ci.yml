@@ -8,13 +8,22 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    container:
-      image: maven:3.9.9-eclipse-temurin-21
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: steeldoor
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Java 24
+      - name: Set up Java 24
         uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -23,6 +32,3 @@ jobs:
 
       - name: Run tests
         run: mvn test
-
-      - name: Build application
-        run: mvn clean package -DskipTests
