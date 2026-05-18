@@ -23,7 +23,12 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(controllers = InterviewRoundController.class)
+@WebMvcTest(
+        controllers = InterviewRoundController.class,
+        excludeAutoConfiguration = {
+                org.springframework.boot.security.autoconfigure.SecurityAutoConfiguration.class
+        }
+)
 @AutoConfigureMockMvc(addFilters = false)
 class InterviewRoundControllerTest {
 
