@@ -12,6 +12,7 @@ import org.example.steeldoor.repository.SubmissionRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -50,6 +51,9 @@ public class InterviewRoundService {
                 .orderIndex(dto.getOrderIndex())
                 .build();
 
+        if (submission.getRounds() == null) {
+            submission.setRounds(new ArrayList<>());
+        }
         submission.getRounds().add(round);
 
         return interviewRoundRepository.save(round);
